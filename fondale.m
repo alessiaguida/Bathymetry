@@ -7,13 +7,13 @@ dx = 0.1;
 %profondità di base
 z_base = 100;
 %genera matrice
-n_x = x / dx;
-n_y = y / dx;
-M_fondale = zeros(n_x,n_y);
-for i =1:n_x
-    for j = 1:n_y
-        M_fondale(i,j) = z_base;% + normrnd(0,1); %+ funzione
+res_x = x / dx;
+res_y = y / dx;
+M_fondale = zeros(res_x,res_y);
+for i =1:res_x
+    for j = 1:res_y
+        M_fondale(i,j) = z_base + 10*sin(j/10); %+ funzione - heaviside(j - 40)
     end
 end
-s = pcolor(M_fondale);
+s = pcolor(-M_fondale); %profondità "negative"
 s.EdgeColor = 'none';
