@@ -1,3 +1,4 @@
+%--------------eco.m--------------
 function [S] = eco(R, SL, DT, TS, alfa, N)
     %alfa coefficiente di attenuazione
     TL = 20 * log10(R) + alfa * R;

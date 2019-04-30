@@ -1,19 +1,10 @@
-%potenza
-SL = 190;
-%soglia
-DT = 80;
-%frequenza
-f = 100;
-%durata impulso
-Td = 1;
-%risoluzione
-N_x = 100;
-N_y = 100;
+%--------echosounder.m-------------
 % variazione per numero di indici
 Dx_index = floor(x / (N_x * dx));
 Dy_index = floor(y / (N_y * dx));
 i = 1;
 M_eco_pot = zeros(N_x, N_y);
+%rng(4); %seed
 while i <= N_x
     if mod(i, 2) == 0
         %avanti
@@ -26,7 +17,7 @@ while i <= N_x
         %indietro
         j = N_y;
         while j >= 1
-            M_eco_pot(i, j) = eco(M_fondale(i * Dx_index, j * Dy_index), SL, DT, 0, 0, 0);
+            M_eco_pot(i, j) = eco(M_fondale(i * Dx_index, j * Dy_index), SL, DT, 0, 0, 0); %-abs(normrnd(0, 0.15))
             j = j - 1;
         end
     end
