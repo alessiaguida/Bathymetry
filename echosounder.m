@@ -22,7 +22,7 @@ while i <= N_x
         end
     end
     i = i + 1;
-end
-figure;
-s=pcolor(M_eco_pot);
-s.EdgeColor = 'none';
+ end
+% figure;
+% s=pcolor(M_eco_pot);
+% s.EdgeColor = 'none';

@@ -24,3 +24,14 @@ N_y = 50;
 fondale
 echosounder
 percorso
+
+figure;
+subplot(2,2,1);
+sfond = pcolor(-M_fondale); %profondità "negative"
+sfond.EdgeColor = 'none';
+subplot(2,2,2);
+s = pcolor(M_eco_pot);
+s.EdgeColor = 'none';
+subplot(2,2,3);
+s = pcolor(M_percorso);
+s.EdgeColor = 'none';

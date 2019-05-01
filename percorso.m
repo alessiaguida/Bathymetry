@@ -22,6 +22,6 @@ while i <= N_x
     end
     i = i + 1;
 end
-figure;
-s=pcolor(M_percorso);
-s.EdgeColor = 'none';
+% figure;
+% s=pcolor(M_percorso);
+% s.EdgeColor = 'none';
