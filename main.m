@@ -25,10 +25,20 @@ N_x = 10;
 N_y = 50;
 %profondità di missione
 z_auv = 100;
+%fondale esteso
+x_ext = x + 1;
+y_ext = y + 1;
 %-------corpo
+% variazione per numero di indici
+Dx_index = floor(x / (N_x * dx));
+Dy_index = floor(y / (N_y * dx));
+%incremento risoluzione
+N_x = N_x + 1;
+N_y = N_y + 1;
 fondale
 echosounder
 percorso
+M_prof_mis = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pot);
 
 figure;
 subplot(2,2,1);
