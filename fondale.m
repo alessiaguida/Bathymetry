@@ -10,6 +10,6 @@ for i =1:res_x
         M_fondale(i,j) = z_base + 10*sin(j/30);%+ 5*sin((i+j)/30) + 50*sin((i-2*j)/30)+20*rand; %+ funzione - heaviside(j - 40)
     end
 end
-
+clear i j;
 % s =pcolor(-M_fondale); %profondità "negative"
 % s.EdgeColor = 'none';

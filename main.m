@@ -1,4 +1,7 @@
 %--------------MAIN---------------
+clear;
+clc;
+close all;
 %------variabili 
 %--fondale
 %dimensioni fondale
@@ -7,7 +10,7 @@ y = 50;
 %spaziatura tra punti
 dx = 0.1;
 %profondità di base
-z_base = 100;
+z_base = 200;
 %--echosounder
 %potenza
 SL = 190;
@@ -19,7 +22,9 @@ f = 100;
 Td = 1;
 %risoluzione
 N_x = 10;
-N_y = 50; 
+N_y = 50;
+%profondità di missione
+z_auv = 100;
 %-------corpo
 fondale
 echosounder
