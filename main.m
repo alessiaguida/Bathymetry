@@ -26,7 +26,7 @@ N = 0; %dB
 f = 10000; %Hz
 %signal duration
 Td = 1; %sec
-%sampling risolution
+%sampling resolution
 N_x = 10;
 N_y = 50;
 %auv mission depth
@@ -48,7 +48,7 @@ seabed
 %mission simulation
 echosounder
 %drawing mission path
-path
+auvPath
 
 %depths from signals
 M_dep_samples = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pow);
@@ -59,6 +59,14 @@ M_dep_samples = eval(M_dep_samples);
 [seabed_XY, seabed_values] = matrix2scatteredData(M_seabed(1:res_x, 1:res_y), 1, 1, res_x, res_y);
 linearInterpolation
 err_linear = mse(M_linear, -M_seabed(1:res_x, 1:res_y));
+naturalNeighbourInterpolation
+err_natural = mse(M_natural, -M_seabed(1:res_x, 1:res_y));
+v4Interpolation
+err_v4 = mse(M_v4, -M_seabed(1:res_x, 1:res_y));
+minimumCurvatureInterpolation
+err_mincurv = mse(M_mincurv, -M_seabed(1:res_x, 1:res_y));
+shepardInterpolation
+err_shepard = mse(M_shepard, -M_seabed(1:res_x, 1:res_y));
 %-------------
 RBFInterpolation
 err_rbf_rb = mse(M_RBF_rb,-M_seabed(1:res_x, 1:res_y));
@@ -67,6 +75,8 @@ err_rbf_grnn = mse(M_RBF_grnn, -M_seabed(1:res_x, 1:res_y));
 %griddedInterpolant interpolation
 [samples_X, samples_Y] = ndgrid(1:Dx_index:(N_x*Dx_index), 1:Dy_index:(N_y*Dy_index));
 [seabed_X, seabed_Y] = ndgrid(1:1:res_x, 1:1:res_y);
+nearestNeighbourInterpolation
+err_nearest = mse(M_nearest, -M_seabed(1:res_x, 1:res_y));
 splineInterpolation
 err_spline = mse(M_spline, -M_seabed(1:res_x, 1:res_y));
 
@@ -75,20 +85,31 @@ figure;
 subplot(2,2,1);
 s = pcolor(-M_seabed); %M_seabed contains abs of depth values, negative by definition
 s.EdgeColor = 'none';
-colorbar;
+xlabel("X [cm]");
+ylabel("Y [cm]");
+c = colorbar;
+c.Label.String = "Depth [m]";
 title("Original seabed 2D");
 subplot(2,2,2);
 mesh(-M_seabed); %M_seabed contains abs of depth values, negative by definition
 s.EdgeColor = 'none';
 colorbar;
+xlabel("X [cm]");
+ylabel("Y [cm]");
+zlabel("Depth [m]");
 title("Original seabed 3D");
 subplot(2,2,3);
 s = pcolor(M_eco_pow);
 s.EdgeColor = 'none';
-colorbar;
+xlabel("X [cm]");
+ylabel("Y [cm]");
+c = colorbar;
+c.Label.String = "Received signal [dB]";
 title("Received signal");
 subplot(2,2,4);
 s = pcolor(M_path);
 s.EdgeColor = 'none';
+xlabel("X [cm]");
+ylabel("Y [cm]");
 title("Mission path");
 clear s;
