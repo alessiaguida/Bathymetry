@@ -37,4 +37,4 @@ xlabel("X [cm]");
 ylabel("Y [cm]");
 zlabel("Depth [m]");
 colorbar;
-clear interpolated_points_RBF_grnn interpolated_points_RBF_rb s
+clear interpolated_points_RBF_grnn interpolated_points_RBF_rb s c

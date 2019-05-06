@@ -15,4 +15,4 @@ xlabel("X [cm]");
 ylabel("Y [cm]");
 zlabel("Depth [m]");
 colorbar;
-clear interpolated_points_linear s
+clear interpolated_points_linear s c

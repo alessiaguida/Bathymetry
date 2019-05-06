@@ -15,4 +15,4 @@ xlabel("X [cm]");
 ylabel("Y [cm]");
 zlabel("Depth [m]");
 colorbar;
-clear s
+clear s c

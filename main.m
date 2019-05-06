@@ -80,6 +80,10 @@ err_nearest = mse(M_nearest, -M_seabed(1:res_x, 1:res_y));
 splineInterpolation
 err_spline = mse(M_spline, -M_seabed(1:res_x, 1:res_y));
 
+%variogram interpolation
+krigingInterpolation
+err_kriging = mse(M_kriging, -M_seabed(1:res_x, 1:res_y));
+
 %plots
 figure;
 subplot(2,2,1);
