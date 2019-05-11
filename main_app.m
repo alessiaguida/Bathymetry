@@ -12,7 +12,7 @@ SL = evalin('base','SL'); %dB
 %detection threshold
 DT = evalin('base','DT'); %dB
 %damping coefficient
-alfa = evalin('base','alfa'); %dB
+alfa = evalin('base','alfa')/1000; %dB/m
 %target strength
 TS = 0; %dB
 %noise
@@ -31,6 +31,7 @@ z_auv = evalin('base','z_auv'); %m
 x_ext = x + 2;
 y_ext = y + 2;
 
+noise_active = evalin('base', 'noise_active');
 
 % number of indexes between samples
 Dx_index = floor(x / (N_x * dx));
@@ -47,8 +48,23 @@ echosounder
 %drawing mission path
 auvPath
 
+assignin('base','M_seabed', M_seabed);
 %depths from signals
-%M_dep_samples = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pow);
-%M_dep_samples = eval(M_dep_samples);
+M_dep_samples = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pow);
+M_dep_samples = eval(M_dep_samples);
+assignin('base','M_dep_samples', M_dep_samples);
 
-plotSurface(-M_seabed, "Seabed");
+%data format for algoritm
+[samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index, res_x, res_y);
+[seabed_XY, seabed_values] = matrix2scatteredData(M_seabed(1:res_x, 1:res_y), 1, 1, res_x, res_y);
+[samples_X, samples_Y] = ndgrid(1:Dx_index:(N_x*Dx_index), 1:Dy_index:(N_y*Dy_index));
+[seabed_X, seabed_Y] = ndgrid(1:1:res_x, 1:1:res_y);
+
+
+plotSurface(-M_seabed(1:res_x, 1:res_y), "Seabed");
+
+%naturalNeighbourInterpolation
+
+splineInterpolation
+
+msgbox(sprintf("Execution time (s): %d \nMSE(m): %d", time, error), "result", "help");

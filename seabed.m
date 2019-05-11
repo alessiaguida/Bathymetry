@@ -3,15 +3,17 @@ res_x = x / dx;
 res_y = y / dx;
 res_x_ext = x_ext / dx;
 res_y_ext = y_ext / dx;
+
 %creating matrix
+%{
 rng(5);
-F = 3;        % frequency-filter width
+F = 3;% frequency-filter width
 [X,Y] = ndgrid(1:res_x_ext,1:res_y_ext);
 i = min(X-1,res_x_ext-X+1);
 j = min(Y-1,res_y_ext-Y+1);
 H = exp(-0.5*(i.^2+j.^2)/F^2);
 M_seabed = z_base + 1000 * real(ifft2(H.*fft2(randn([res_x_ext res_y_ext]))));
-%{
+%}
 M_seabed = zeros(res_x_ext,res_y_ext);
 for i =1:res_x_ext
     for j = 1:res_y_ext

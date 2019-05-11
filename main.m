@@ -2,7 +2,7 @@
 clear;
 clc;
 close all;
-
+noise_active = 0;
 %------variables
 %seabed's dimensions
 x = 10; %m
@@ -53,6 +53,8 @@ auvPath
 %depths from signals
 M_dep_samples = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pow);
 M_dep_samples = eval(M_dep_samples);
+
+
 
 %griddata and rbf interpolation
 [samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index, res_x, res_y);
