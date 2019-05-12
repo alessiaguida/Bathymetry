@@ -17,7 +17,7 @@ DT = evalin('base','DT'); %dB
 %damping coefficient
 alfa = evalin('base','alfa')/1000; %dB/m
 %target strength
-TS = 0; %dB
+TS = evalin('base','seabedType'); %dB
 %noise
 N = evalin('base','N'); %dB
 %signal frequency
@@ -102,7 +102,7 @@ switch(interpolation)
         linearInterpolation
     case "RBF"
         RBFInterpolation
-    case "NaturalNeighbour"
+    case "Natural Neighbour"
         naturalNeighbourInterpolation
     case "Nearest Neighbour"
         nearestNeighbourInterpolation
