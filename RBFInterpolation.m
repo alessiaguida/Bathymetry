@@ -17,6 +17,6 @@ time = toc;
 error =  mse(M_RBF_grnn, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
-assignin('base','error', M_RBF_grnn);
+assignin('base','M_RBF_grnn', M_RBF_grnn);
 plotSurface(M_RBF_grnn, 'RBF interpolation - newgrnn')
 clear interpolated_points_RBF_grnn interpolated_points_RBF_rb

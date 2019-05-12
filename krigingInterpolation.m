@@ -9,6 +9,6 @@ time = toc;
 error =  mse(M_kriging, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
-assignin('base','error', M_kriging);
+assignin('base','M_kriging', M_kriging);
 plotSurface(M_kringing, "Kriging interpolation");
 clear dum M_var vstruct v

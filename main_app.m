@@ -1,3 +1,6 @@
+clc;
+x_bar = 0;
+wb = waitbar(x_bar, "Seabed generation", "Name", "Progress");
 %------variables
 %seabed's dimensions
 x = evalin('base','x'); %m
@@ -31,7 +34,12 @@ z_auv = evalin('base','z_auv'); %m
 x_ext = x + 2;
 y_ext = y + 2;
 
+%control
 noise_active = evalin('base', 'noise_active');
+outliers_active = evalin('base', 'outliers_active');
+interpolation = evalin('base', 'interpolation');
+shape = evalin('base', 'shape');
+use_previous_data = evalin('base', 'use_previous_data');
 
 % number of indexes between samples
 Dx_index = floor(x / (N_x * dx));
@@ -41,19 +49,44 @@ Dy_index = floor(y / (N_y * dx));
 N_x = N_x + 1;
 N_y = N_y + 1;
 
-%seabed initialization
-seabed
-%mission simulation
-echosounder
-%drawing mission path
-auvPath
+%matrix dimensions
+res_x = x / dx;
+res_y = y / dx;
+res_x_ext = x_ext / dx;
+res_y_ext = y_ext / dx;
 
-assignin('base','M_seabed', M_seabed);
-%depths from signals
-M_dep_samples = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pow);
-M_dep_samples = eval(M_dep_samples);
-assignin('base','M_dep_samples', M_dep_samples);
-
+if use_previous_data == 0 
+    %seabed initialization
+    addpath("./seabedFunctions");
+    %creating matrix
+    switch(shape)
+        case "Plane"
+            planeSeabed
+        case "Step"
+            stepSeabed
+        case "Sin product"
+            sinProdSeabed
+        case "Gaussian"
+            gaussianSeabed
+    end
+    assignin('base','M_seabed', M_seabed);
+    %mission simulation
+    x_bar = .25;
+    waitbar(x_bar, wb, "Mission simulation");
+    echosounder
+    assignin('base','M_eco_pow', M_eco_pow);
+    %drawing mission path
+    auvPath
+    %depths from signals
+    x_bar = .5;
+    waitbar(x_bar, wb, "Post-mission data elaboration");
+    postMissionElaboration
+    %M_dep_samples = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pow);
+    %M_dep_samples = eval(M_dep_samples);
+else
+    M_seabed = evalin('base', 'M_seabed');
+    M_dep_samples = evalin('base','M_dep_samples');
+end
 %data format for algoritm
 [samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index, res_x, res_y);
 [seabed_XY, seabed_values] = matrix2scatteredData(M_seabed(1:res_x, 1:res_y), 1, 1, res_x, res_y);
@@ -62,9 +95,35 @@ assignin('base','M_dep_samples', M_dep_samples);
 
 
 plotSurface(-M_seabed(1:res_x, 1:res_y), "Seabed");
-
-%naturalNeighbourInterpolation
-
-splineInterpolation
-
+x_bar = .75;
+waitbar(x_bar, wb, "Interpolation");
+switch(interpolation)
+    case "Linear"
+        linearInterpolation
+    case "RBF"
+        RBFInterpolation
+    case "NaturalNeighbour"
+        naturalNeighbourInterpolation
+    case "Nearest Neighbour"
+        nearestNeighbourInterpolation
+    case "Kriging"
+        krigingInterpolation
+    case "Shepard"
+        shepardInterpolation
+    case "Minimum Curvature"
+        minimumCurvatureInterpolation
+    case "Biharmonic Spline"
+        v4Interpolation
+    case "Spline"
+        splineInterpolation
+end
+close(wb)
+clear wb x_bar
+% d = dialog('Position',[300 300 250 150],'Name','Result');
+% uicontrol('Parent',d,...
+%            'Style','text',...
+%            'Position',[20 80 210 100],...
+%            'FontSize',11,...
+%            'String',sprintf("Execution time (s): %f \nMSE(m): %f", time, error));
+% clear d
 msgbox(sprintf("Execution time (s): %d \nMSE(m): %d", time, error), "result", "help");

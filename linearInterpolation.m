@@ -6,6 +6,6 @@ time = toc;
 error =  mse(M_linear, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
-assignin('base','error', M_linear);
+assignin('base','M_linear', M_linear);
 plotSurface(M_linear, 'Linear interpolation')
 clear interpolated_points_linear
