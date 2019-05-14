@@ -62,12 +62,16 @@ if use_previous_data == 0
     switch(shape)
         case "Plane"
             planeSeabed
+            limits = [-303 -297]; %step, plane and sin
         case "Step"
             stepSeabed
+            limits = [-303 -297];
         case "Sin product"
             sinProdSeabed
+            limits = [-303 -297];
         case "Gaussian"
             gaussianSeabed
+            limits = [-315 -285]; %gaussian
     end
     assignin('base','M_seabed', M_seabed);
     %mission simulation
@@ -94,7 +98,7 @@ end
 [seabed_X, seabed_Y] = ndgrid(1:1:res_x, 1:1:res_y);
 
 
-plotSurface(-M_seabed(1:res_x, 1:res_y), "Seabed");
+plotSurface(-M_seabed(1:res_x, 1:res_y), "Seabed", limits);
 x_bar = .75;
 waitbar(x_bar, wb, "Interpolation");
 switch(interpolation)
@@ -127,3 +131,4 @@ clear wb x_bar
 %            'String',sprintf("Execution time (s): %f \nMSE(m): %f", time, error));
 % clear d
 msgbox(sprintf("Execution time (s): %d \nMSE(m): %d", time, error), "result", "help");
+fprintf("%d \n%d\n", time, error);

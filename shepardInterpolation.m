@@ -9,5 +9,5 @@ error =  mse(M_shepard, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
 assignin('base','M_shepard', M_shepard);
-plotSurface(M_shepard, 'Shepard interpolation')
+plotSurface(M_shepard, 'Shepard interpolation', limits)
 clear interpolated_points_shepard power

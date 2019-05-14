@@ -5,7 +5,7 @@ interpolated_points_RBF_rb = (sim(net_rb, seabed_XY'))';
 M_RBF_rb = scatteredData2matrix(seabed_XY, interpolated_points_RBF_rb, res_x, res_y);
 M_RBF_rb = -(M_RBF_rb + z_auv);
 close NEWRB;
-plotSurface(M_RBF_rb,'RBF interpolation - newrb')
+plotSurface(M_RBF_rb,'RBF interpolation - newrb', limits)
 %}
 %-------grnn
 tic;
@@ -18,5 +18,5 @@ error =  mse(M_RBF_grnn, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
 assignin('base','M_RBF_grnn', M_RBF_grnn);
-plotSurface(M_RBF_grnn, 'RBF interpolation - newgrnn')
-clear interpolated_points_RBF_grnn interpolated_points_RBF_rb
+plotSurface(M_RBF_grnn, 'RBF interpolation - newgrnn', limits)
+clear interpolated_points_RBF_grnn interpolated_points_RBF_rb net_rgnn

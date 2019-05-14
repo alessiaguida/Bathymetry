@@ -1,4 +1,4 @@
-function plotSurface(M, name)
+function plotSurface(M, name, limits)
 figure('Name',name,'NumberTitle','off')
 subplot(1,2,1);
 s = pcolor(M);
@@ -10,6 +10,7 @@ ylabel("Y [m]");
 t = get(gca, 'YTick');
 set(gca, 'YTick', t, 'YTickLabel', t/100)
 c = colorbar;
+caxis(limits);
 c.Label.String = "Depth [m]";
 subplot(1,2,2);
 mesh(M);
@@ -20,5 +21,7 @@ ylabel("Y [m]");
 t = get(gca, 'YTick');
 set(gca, 'YTick', t, 'YTickLabel', t/100)
 zlabel("Depth [m]");
+zlim(limits);
+caxis(limits);
 colorbar;
 end

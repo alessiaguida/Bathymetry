@@ -7,5 +7,5 @@ error =  mse(M_v4, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
 assignin('base','M_v4', M_v4);
-plotSurface(M_v4, 'v4 interpolation')
+plotSurface(M_v4, 'v4 interpolation', limits)
 clear interpolated_points_v4
