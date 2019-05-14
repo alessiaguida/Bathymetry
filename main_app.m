@@ -74,6 +74,7 @@ if use_previous_data == 0
             limits = [-315 -285]; %gaussian
     end
     assignin('base','M_seabed', M_seabed);
+    assignin('base','limits', limits);
     %mission simulation
     x_bar = .25;
     waitbar(x_bar, wb, "Mission simulation");
@@ -90,6 +91,7 @@ if use_previous_data == 0
 else
     M_seabed = evalin('base', 'M_seabed');
     M_dep_samples = evalin('base','M_dep_samples');
+    limits = evalin('base','limits');
 end
 %data format for algoritm
 [samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index, res_x, res_y);
