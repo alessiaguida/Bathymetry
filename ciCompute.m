@@ -1,6 +1,6 @@
 dx = 0.01;
-Dx_index = floor(x / (N_x * dx));
-Dy_index = floor(y / (N_y * dx));
+Dx_index = ceil(x / (N_x * dx));
+Dy_index = ceil(y / (N_y * dx));
 res_x = x / dx;
 res_y = y / dx;
 [samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index, res_x, res_y);
