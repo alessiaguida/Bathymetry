@@ -19,7 +19,7 @@ while i <= N_x
             waitbar(x_bar, wb);
         end
     else
-        %back
+        %backward
         j = N_y;
         while j >= 1
             M_eco_pow(i, j) = eco(M_seabed((i-1) * Dx_index +1, (j-1) * Dy_index +1) - z_auv, SL, DT, TS, alfa, N)+ normrnd(0, sigma_noise) * noise_active; %-abs(normrnd(0, 0.15))
