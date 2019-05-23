@@ -1,4 +1,4 @@
-dx = 0.01;
+dx = 0.1;
 Dx_index = ceil(x / (N_x * dx));
 Dy_index = ceil(y / (N_y * dx));
 res_x = x / dx;

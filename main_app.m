@@ -6,7 +6,7 @@ wb = waitbar(x_bar, "Seabed generation", "Name", "Progress");
 x = evalin('base','x'); %m
 y = evalin('base','y'); %m
 %seabed sampling step
-dx = 0.01; %m
+dx = 0.1; %m
 assignin('base','dx', dx);
 %starting depth
 z_base = evalin('base','z_base'); %m
@@ -30,10 +30,14 @@ N_x = evalin('base','N_x');
 N_y = evalin('base','N_y');
 %auv mission depth
 z_auv = evalin('base','z_auv'); %m
+%sound speed
+c = evalin('base', 'c');%m/s
+%max ping rate
+PRmax = evalin('base', 'PRmax');%Hz
 
 %seabed dimension including padding
-x_ext = x + 2;
-y_ext = y + 2;
+x_ext = x + 20;
+y_ext = y + 20;
 
 assignin('base','x_ext', x_ext);
 assignin('base','y_ext', y_ext);
@@ -88,8 +92,6 @@ if use_previous_data == 0
     waitbar(x_bar, wb, "Mission simulation");
     echosounder
     assignin('base','M_eco_pow', M_eco_pow);
-    %drawing mission path
-    auvPath
     %depths from signals
     x_bar = .5;
     waitbar(x_bar, wb, "Post-mission data elaboration");
@@ -107,6 +109,8 @@ end
 [samples_X, samples_Y] = ndgrid(1:Dx_index:(N_x*Dx_index), 1:Dy_index:(N_y*Dy_index));
 [seabed_X, seabed_Y] = ndgrid(1:1:res_x, 1:1:res_y);
 
+%drawing mission path
+auvPath
 
 plotSurface(-M_seabed(1:res_x, 1:res_y), "Seabed", limits);
 x_bar = .75;
@@ -142,28 +146,3 @@ clear wb x_bar
 % clear d
 msgbox(sprintf("Execution time (s): %d \nMSE(m): %d", time, error), "result", "help");
 fprintf("%d \n%d\n", time, error);
-figure
-% figure
-hold on
-plot(samples_XY(:,1),samples_XY(:,2),'*r')
-% Draw lines
-th = linspace(-pi/2,pi/2);
-for j=1:N_y
-    plot(samples_X(:,j),samples_Y(:,j),'b');
-    cy = samples_Y(1,j)+Dy_index/2;
-    r = Dy_index/2;
-    if mod(j, 2) == 1
-        cx = (N_x - 1) * Dx_index + 1;
-        a = [r * cos(th) + cx ; r * sin(th) + cy];
-    else
-        cx = 1;
-        a = [- r * cos(th) + cx ; r * sin(th) + cy];
-    end
-    if j ~= N_y
-        plot(a(1, :), a(2, :), 'b');
-    end
-end
-plot(seabed_X(1:res_x,1),seabed_Y(1:res_x,1),'g-');
-plot(seabed_X(1,1:res_y),seabed_Y(1,1:res_y),'g-');
-plot(seabed_X(1:res_x,res_y),seabed_Y(1:res_x,res_y),'g-');
-plot(seabed_X(res_x,1:res_y),seabed_Y(res_x,1:res_y),'g-');
