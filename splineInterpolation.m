@@ -7,5 +7,4 @@ error =  mse(M_spline, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
 assignin('base','M_spline', M_spline);
-plotSurface(M_spline, 'Spline interpolation', limits);
 clear F_sline

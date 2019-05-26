@@ -104,8 +104,8 @@ else
     limits = evalin('base','limits');
 end
 %data format for algoritm
-[samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index, res_x, res_y);
-[seabed_XY, seabed_values] = matrix2scatteredData(M_seabed(1:res_x, 1:res_y), 1, 1, res_x, res_y);
+[samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index);
+[seabed_XY, seabed_values] = matrix2scatteredData(M_seabed(1:res_x, 1:res_y), 1, 1);
 [samples_X, samples_Y] = ndgrid(1:Dx_index:(N_x*Dx_index), 1:Dy_index:(N_y*Dy_index));
 [seabed_X, seabed_Y] = ndgrid(1:1:res_x, 1:1:res_y);
 
@@ -118,31 +118,34 @@ waitbar(x_bar, wb, "Interpolation");
 switch(interpolation)
     case "Linear"
         linearInterpolation
+        plotSurface(M_linear, 'Linear interpolation', limits);
     case "RBF"
         RBFInterpolation
+        plotSurface(M_RBF_grnn, 'RBF interpolation - newgrnn', limits);
     case "Natural Neighbour"
         naturalNeighbourInterpolation
+        plotSurface(M_natural, 'Natural neighbour interpolation', limits);
     case "Nearest Neighbour"
         nearestNeighbourInterpolation
+        plotSurface(M_nearest, 'Nearest neighbour interpolation', limits);
     case "Kriging"
         krigingInterpolation
+        plotSurface(M_kriging, "Kriging interpolation", limits);
     case "Shepard"
         shepardInterpolation
+        plotSurface(M_shepard, 'Shepard interpolation', limits);
     case "Minimum Curvature"
         minimumCurvatureInterpolation
+        plotSurface(M_mincurv,'Minimum curvature interpolation', limits);
     case "Biharmonic Spline"
         v4Interpolation
+        plotSurface(M_v4, 'v4 interpolation', limits);
     case "Spline"
         splineInterpolation
+        plotSurface(M_spline, 'Spline interpolation', limits);
 end
 close(wb)
 clear wb x_bar
-% d = dialog('Position',[300 300 250 150],'Name','Result');
-% uicontrol('Parent',d,...
-%            'Style','text',...
-%            'Position',[20 80 210 100],...
-%            'FontSize',11,...
-%            'String',sprintf("Execution time (s): %f \nMSE(m): %f", time, error));
-% clear d
+
 msgbox(sprintf("Execution time (s): %d \nMSE(m): %d", time, error), "result", "help");
 fprintf("%d \n%d\n", time, error);

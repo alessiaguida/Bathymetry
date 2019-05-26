@@ -1,9 +1,10 @@
-clc
-% for n = 2:100
-% aux = floor(1000/(n-1))*floor((n-1)/2)+ceil(1000/(n-1))*ceil((n-1)/2);
-% aux = ceil(1000/(n-1))*(n-1);
-% aux2 = ceil(1000/(n-1))/(1000/(n-1));
-% fprintf("%d : %d : %d : %f <= %f\n", n, ceil(1000/(n-1)), aux, aux2, n/(n-1));
-% end
-%ncid = netcdf.close("C:\Users\irace\Desktop\GEBCO_2019_SID.nc");
-T = dlmread("C:\Users\irace\Desktop\GEBCO_2019_-31.0_-3.0_-29.0_-5.0.txt");
+T = dlmread("C:\Users\irace\Desktop\"+"GEBCO_2019_6.0_40.0_7.0_39.0_ESRIASCII.txt");
+[x y] = gcs2km(6.0,40.0,7.0,39.0);
+dx = x/240;
+dy = y/240;
+%matrix is 240 x 240
+for i = 2:101
+    fprintf("%d : %f\n",i, ceil(216/(i-1))*(i-1));
+end
+%RESULT: number of samples only up to 49
+plotSurface(T,"Seabed", [-3010 -2700], dx, dy, "km");

@@ -1,4 +1,4 @@
-function [XY, Z] = matrix2scatteredData(M, step_x, step_y, res_x, res_y)
+function [XY, Z] = matrix2scatteredData(M, step_x, step_y)
     [n, m] = size(M);
     XY = zeros((n * m), 2);
     Z = zeros((n * m), 1);
