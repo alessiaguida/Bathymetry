@@ -2,7 +2,7 @@ function plotSurface(M, name, limits,dx,dy,label)
 if(nargin == 3)
     dx = 0.1;
     dy = 0.1;
-    label = "m";
+    label = "Km";
 end
 figure('Name',name,'NumberTitle','off')
 %subplot(1,2,1);
@@ -11,10 +11,10 @@ s = pcolor(M);
 s.EdgeColor = 'none';
 xlabel("X ["+label+"]");
 t = get(gca, 'XTick');
-set(gca, 'XTick', t, 'XTickLabel', floor(t*dx))
+set(gca, 'XTick', t, 'XTickLabel', floor(t*dy))
 ylabel("Y ["+label+"]");
 t = get(gca, 'YTick');
-set(gca, 'YTick', t, 'YTickLabel', floor(t*dy))
+set(gca, 'YTick', t, 'YTickLabel', floor(t*dx))
 c = colorbar;
 caxis(limits);
 c.Label.String = "Depth [m]";
@@ -23,10 +23,10 @@ subplot(2,1,2);
 mesh(M);
 xlabel("X ["+label+"]");
 t = get(gca, 'XTick');
-set(gca, 'XTick', t, 'XTickLabel', floor(t*dx))
+set(gca, 'XTick', t, 'XTickLabel', floor(t*dy))
 ylabel("Y ["+label+"]");
 t = get(gca, 'YTick');
-set(gca, 'YTick', t, 'YTickLabel', floor(t*dy))
+set(gca, 'YTick', t, 'YTickLabel', floor(t*dx))
 zlabel("Depth [m]");
 zlim(limits);
 caxis(limits);
