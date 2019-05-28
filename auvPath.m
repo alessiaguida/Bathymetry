@@ -6,7 +6,9 @@ v_up1 = v_up1 * mps2kn;
 v_up2 = (PRmax + 1) * Dx_index * dx;
 v_up2 = v_up2 * mps2kn;
 v_lub = min(v_up1, v_up2);
-
+if shape == "Mediterranean Sea"
+    v_lub = v_lub * 1000;
+end
 assignin('base','v_up1', v_up1);
 assignin('base','v_up2', v_up2);
 assignin('base','v_lub', v_lub);
@@ -40,9 +42,9 @@ plot(seabed_Y(1,1:res_y)-1, seabed_X(1,1:res_y)-1, 'k--');
 plot(seabed_Y(1:res_x,res_y)-1, seabed_X(1:res_x,res_y)-1, 'k--');
 plot(seabed_Y(res_x,1:res_y)-1, seabed_X(res_x,1:res_y)-1, 'k--');
 title(sprintf("Maximum AUV velocity = %.2f kn", v_lub));
-xlabel("X [m]");
+xlabel("X ["+label+"]");
 t = get(gca, 'XTick');
 set(gca, 'XTick', t, 'XTickLabel', floor(t*dy))
-ylabel("Y [m]");
+ylabel("Y ["+label+"]");
 t = get(gca, 'YTick');
 set(gca, 'YTick', t, 'YTickLabel', floor(t*dx))

@@ -98,7 +98,7 @@ if use_previous_data == 0
             label = "m";
         case "Mediterranean Sea"
             limits = [-3010 -2700];
-            label = "Km";
+            label = "km";
     end
     assignin('base','M_seabed', M_seabed);
     assignin('base','limits', limits);
