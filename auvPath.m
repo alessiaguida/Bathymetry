@@ -11,8 +11,6 @@ assignin('base','v_up1', v_up1);
 assignin('base','v_up2', v_up2);
 assignin('base','v_lub', v_lub);
 
-N_y
-N_x
 figure('Name', 'Mission path','NumberTitle','off')
 % figure
 hold on
