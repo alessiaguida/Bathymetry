@@ -5,11 +5,11 @@ wb = waitbar(x_bar, "Seabed generation", "Name", "Progress");
 shape = evalin('base', 'shape');
 %seabed's dimensions
 if shape ~= "Mediterranean Sea"
-    x = evalin('base','x'); %km
-    y = evalin('base','y'); %km
+    x = evalin('base','x'); %m
+    y = evalin('base','y'); %m
     %seabed sampling step
-    dx = 0.1; %km
-    dy = 0.1; %km
+    dx = 0.1; %m
+    dy = 0.1; %m
     assignin('base','dx', dx);
     assignin('base','dy', dy);
     %starting depth
@@ -83,19 +83,19 @@ if use_previous_data == 0
         case "Plane"
             planeSeabed
             limits = [-303 -297]; %step, plane and sin
-            label = "Km";
+            label = "m";
         case "Step"
             stepSeabed
             limits = [-303 -297];
-            label = "Km";
+            label = "m";
         case "Sin product"
             sinProdSeabed
             limits = [-303 -297];
-            label = "Km";
+            label = "m";
         case "Gaussian"
             gaussianSeabed
             limits = [-315 -285]; %gaussian
-            label = "Km";
+            label = "m";
         case "Mediterranean Sea"
             limits = [-3010 -2700];
             label = "Km";
@@ -164,5 +164,5 @@ end
 close(wb)
 clear wb x_bar
 
-msgbox(sprintf("Execution time (s): %.3f \nMSE("+label+"^2): %.1f", time, error), "result", "help");
+msgbox(sprintf("Execution time (s): %.3f \nMSE(m^2): %.1f", time, error), "result", "help");
 fprintf("%.3f \n%.1\n", time, error);
