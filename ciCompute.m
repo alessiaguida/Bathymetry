@@ -19,7 +19,15 @@ N_iter = 5;
 times = zeros(N_iter, 1);
 for i=1:N_iter
     %interpolation method
-    krigingInterpolation
+%     linearInterpolation
+%     RBFInterpolation
+%     naturalNeighbourInterpolation
+%     nearestNeighbourInterpolation
+%     krigingInterpolation
+    shepardInterpolation
+%     minimumCurvatureInterpolation
+%     v4Interpolation
+%     splineInterpolation
     times(i, 1) = time;
     fprintf("%d / %d\n",i, N_iter);
 end
