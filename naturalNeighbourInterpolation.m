@@ -7,5 +7,4 @@ error =  mse(M_natural, -M_seabed(1:res_x, 1:res_y));
 assignin('base','time', time);
 assignin('base','error', error);
 assignin('base','M_natural', M_natural);
-plotSurface(M_natural, 'Natural neighbour interpolation', limits)
 clear interpolated_points_natural
