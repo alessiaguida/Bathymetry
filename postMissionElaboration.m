@@ -1,5 +1,7 @@
+%matrix with depth samples
 M_dep_samples = zeros(N_x, N_y);
 i = 1;
+%converting power to distance
 while i <= N_x
         j = 1;
         while j <= N_y
@@ -10,6 +12,7 @@ while i <= N_x
         end
     i = i + 1;    
 end
+%removing outliers
 if outliers_active
     assignin('base','old_samples', M_dep_samples);
     M_dep_samples = filloutliers(M_dep_samples, 'linear', 'gesd');

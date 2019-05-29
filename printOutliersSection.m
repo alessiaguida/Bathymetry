@@ -1,3 +1,5 @@
+%printing a section of samples on seabed profile to show outliers and their
+%rejection
 i = 2;
 figure
 subplot(1,2,1);

@@ -1,26 +1,25 @@
 clc;
 x_bar = 0;
 wb = waitbar(x_bar, "Seabed generation", "Name", "Progress");
-%------variables
+%seabed shape
 shape = evalin('base', 'shape');
-%seabed's dimensions
+%if it is not the real seabed data are taken from the GUI
 if shape ~= "Mediterranean Sea"
     x = evalin('base','x'); %m
     y = evalin('base','y'); %m
-    %seabed sampling step
+    %seabed granularity
     dx = 0.1; %m
     dy = 0.1; %m
     assignin('base','dx', dx);
     assignin('base','dy', dy);
-    %starting depth
+    %seabed base depth
     z_base = evalin('base','z_base'); %m
 end
-%--echosounder
 %source level
 SL = evalin('base','SL'); %dB
 %detection threshold
 DT = evalin('base','DT'); %dB
-%damping coefficient
+%water damping coefficient
 alfa = evalin('base','alfa')/1000; %dB/m
 %target strength
 TS = evalin('base','seabedType'); %dB
@@ -29,8 +28,8 @@ N = evalin('base','N'); %dB
 %signal frequency
 f = evalin('base','f'); %Hz
 %signal duration
-Td = evalin('base','Td'); %sec
-%sampling resolution
+Td = evalin('base','Td'); %ms
+%sampling resolution (number of intervals at this point)
 N_x = evalin('base','N_x');
 N_y = evalin('base','N_y');
 %auv mission depth
@@ -40,49 +39,55 @@ c = evalin('base', 'c');%m/s
 %max ping rate
 PRmax = evalin('base', 'PRmax');%Hz
 
-%seabed dimension including padding
 if shape ~= "Mediterranean Sea"
+    %padding for external samples
     x_ext = x + 20;
     y_ext = y + 20;
     assignin('base','x_ext', x_ext);
     assignin('base','y_ext', y_ext);
 end
-%control
+
+%control variables
 noise_active = evalin('base', 'noise_active');
 outliers_active = evalin('base', 'outliers_active');
 interpolation = evalin('base', 'interpolation');
 use_previous_data = evalin('base', 'use_previous_data');
 
+%invoke seabed code
 addpath("./seabedFunctions");
 
 if shape ~= "Mediterranean Sea"
+    %indexes between samples
     Dx_index = ceil(x / (N_x * dx));
-    Dy_index = ceil(y / (N_y * dx));
+    Dy_index = ceil(y / (N_y * dy));
     assignin('base','Dx_index', Dx_index);
     assignin('base','Dy_index', Dy_index);
-    %increasing resolution
+    %increasing resolution (at this point is the number of sampling points)
     N_x = N_x + 1;
     N_y = N_y + 1;
 
-    %matrix dimensions
+    %area of interest dimensions 
     res_x = x / dx;
-    res_y = y / dx;
+    res_y = y / dy;
     assignin('base','res_x', res_x);
     assignin('base','res_y', res_y);
+    %area with padding
     res_x_ext = x_ext / dx;
-    res_y_ext = y_ext / dx;
+    res_y_ext = y_ext / dy;
     assignin('base','res_x_ext', res_x_ext);
     assignin('base','res_y_ext', res_y_ext);
 else
+    %variables are computed in here because it has a different scale
     MediterraneanSeabed
 end
 
+%new data
 if use_previous_data == 0
     %creating matrix
     switch(shape)
         case "Plane"
             planeSeabed
-            limits = [-303 -297]; %step, plane and sin
+            limits = [-303 -297];
             label = "m";
         case "Step"
             stepSeabed
@@ -94,9 +99,10 @@ if use_previous_data == 0
             label = "m";
         case "Gaussian"
             gaussianSeabed
-            limits = [-315 -285]; %gaussian
+            limits = [-315 -285]; 
             label = "m";
         case "Mediterranean Sea"
+            %matrix already created
             limits = [-3010 -2700];
             label = "km";
     end
@@ -108,18 +114,18 @@ if use_previous_data == 0
     waitbar(x_bar, wb, "Mission simulation");
     echosounder
     assignin('base','M_eco_pow', M_eco_pow);
-    %depths from signals
+    %computing depths from signals
     x_bar = .5;
     waitbar(x_bar, wb, "Post-mission data elaboration");
     postMissionElaboration
-    %M_dep_samples = arrayfun(@(x) eco2R(x, SL, 0, 0), M_eco_pow);
-    %M_dep_samples = eval(M_dep_samples);
 else
+    %recovering data
     M_seabed = evalin('base', 'M_seabed');
     M_dep_samples = evalin('base','M_dep_samples');
     limits = evalin('base','limits');
     label = evalin('base','label');
 end
+
 %data format for algoritm
 [samples_XY, samples] = matrix2scatteredData(M_dep_samples, Dx_index, Dy_index);
 [seabed_XY, seabed_values] = matrix2scatteredData(M_seabed(1:res_x, 1:res_y), 1, 1);
@@ -129,7 +135,10 @@ end
 %drawing mission path
 auvPath
 
+%plotting area of interest
 plotSurface(-M_seabed(1:res_x, 1:res_y), "Seabed", limits, dx, dy, label);
+
+%interpolation
 x_bar = .75;
 waitbar(x_bar, wb, "Interpolation");
 switch(interpolation)
@@ -164,5 +173,6 @@ end
 close(wb)
 clear wb x_bar
 
+%message with performance
 msgbox(sprintf("Execution time (s): %.3f \nMSE(m^2): %.1f", time, error), "result", "help");
 fprintf("%.3f \n%.1\n", time, error);
