@@ -11,11 +11,11 @@ res_y = evalin('base','res_y');
 [samples_X, samples_Y] = ndgrid(1:Dx_index:((N_x+1)*Dx_index), 1:Dy_index:((N_y+1)*Dy_index));
 [seabed_X, seabed_Y] = ndgrid(1:1:res_x, 1:1:res_y);
 %plot limits
-%limits = [-303 -297]; %step, plane and sin
-limits = [-315 -285]; %gaussian
+limits = [-303 -297]; %step, plane and sin
+%limits = [-315 -285]; %gaussian
 %limits = [-3010 -2700]; %Mediterranean
 
-N_iter = 5;
+N_iter = 3;
 times = zeros(N_iter, 1);
 for i=1:N_iter
     %interpolation method
@@ -24,8 +24,8 @@ for i=1:N_iter
 %     naturalNeighbourInterpolation
 %     nearestNeighbourInterpolation
 %     krigingInterpolation
-    shepardInterpolation
-%     minimumCurvatureInterpolation
+%     shepardInterpolation
+    minimumCurvatureInterpolation
 %     v4Interpolation
 %     splineInterpolation
     times(i, 1) = time;
