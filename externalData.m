@@ -1,5 +1,6 @@
 load(".\seabedFunctions\vettore_compensato_piano_inclinato.mat");
 z_auv = 200;
+z_base = 300;
 dx = .1;
 dy = .1;
 res_x = abs(floor(max(vettore_risultante(1,:))/dx) - floor(min(vettore_risultante(1,:))/dx))+1;
