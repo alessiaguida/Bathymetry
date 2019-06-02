@@ -22,22 +22,22 @@ M = redundantScatteredData2matrix([(X_data') (Y_data')], vettore_risultante(3,:)
 [samples_XY, samples] = sparseMatrix2scatteredData(M, 1, 1);
 
 %interpolation
-N_iter = 5;
+N_iter = 3;
 times = zeros(N_iter, 1);
 for i=1:N_iter
     close;
 %     linearInterpolation
 %     plotSurface(M_linear,'Linear interpolation',[-inf inf],dx,dy,"m", -offset_x, -offset_y)
-%     RBFInterpolation
-%     plotSurface(M_RBF_grnn, 'RBF interpolation - newgrnn', [-inf inf], dx, dy, label);
+    RBFInterpolation
+    plotSurface(M_RBF_grnn, 'RBF interpolation - newgrnn', [-inf inf], dx, dy,"m", -offset_x, -offset_y);
 %     naturalNeighbourInterpolation
-%     plotSurface(M_natural, 'Natural neighbour interpolation', [-inf inf], dx, dy, label);
-    shepardInterpolation
-    plotSurface(M_shepard, 'Shepard interpolation',[-inf inf], dx, dy, label);
-    % minimumCurvatureInterpolation
-    % plotSurface(M_mincurv,'Minimum curvature interpolation',[-inf inf], dx, dy, label);
-    % v4Interpolation
-    % plotSurface(M_v4, 'v4 interpolation', [-inf inf], dx, dy, label);
+%     plotSurface(M_natural, 'Natural neighbour interpolation', [-inf inf], dx, dy, "m", -offset_x, -offset_y);
+%     shepardInterpolation
+%     plotSurface(M_shepard, 'Shepard interpolation',[-inf inf], dx, dy, "m", -offset_x, -offset_y);
+%     minimumCurvatureInterpolation
+%     plotSurface(M_mincurv,'Minimum curvature interpolation',[-inf inf], dx, dy,"m", -offset_x, -offset_y);
+%     v4Interpolation
+%     plotSurface(M_v4, 'v4 interpolation', [-inf inf], dx, dy, "m", -offset_x, -offset_y);
     times(i, 1) = time;
     fprintf("%d / %d\n",i, N_iter);
 end
