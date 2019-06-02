@@ -7,4 +7,10 @@ j = min(Y-1,res_y_ext-Y+1);
 H = exp(-0.5*(i.^2+j.^2)/F^2);
 %filtering random normal gaussian process
 M_seabed = z_base + 1000 * real(ifft2(H.*fft2(randn([res_x_ext res_y_ext]))));
-clear F i j X Y H
+%clear F i j X Y H
+
+N = randn([res_x_ext res_y_ext]);
+acf = xcorr2(N);
+Sy = fft2(acf).*H.*H';
+Ry = real(ifft(Sy));
+Ry(1,1)

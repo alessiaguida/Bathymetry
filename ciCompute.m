@@ -25,9 +25,9 @@ for i=1:N_iter
 %     nearestNeighbourInterpolation
 %     krigingInterpolation
 %     shepardInterpolation
-%     minimumCurvatureInterpolation
+    minimumCurvatureInterpolation
 %     v4Interpolation
-    splineInterpolation
+%     splineInterpolation
     times(i, 1) = time;
     fprintf("%d / %d\n",i, N_iter);
 end
