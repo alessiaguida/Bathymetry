@@ -23,7 +23,7 @@ t = get(gca, 'YTick');
 set(gca, 'YTick', t, 'YTickLabel', floor((t+offset_x)*dx))
 %color bar on the first plot if required
 %c = colorbar;
-%caxis(limits);
+caxis(limits);
 %c.Label.String = "Depth [m]";
 subplot(1,2,2); %orizontal
 %subplot(2,1,2); %vertical

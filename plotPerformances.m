@@ -2,7 +2,7 @@ function plotPerformances(M)
     %M is structured as (name, mse, time)
     figure('Name', 'Performances','NumberTitle','off')
     [x y] = size(M);
-    d = 0.1;
+    d = 0;
     hold on
     for i=1:x
         plot(str2double(M(i,3)), str2double(M(i,2)),"x",'MarkerSize',14,'LineWidth',3);
