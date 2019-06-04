@@ -1,3 +1,4 @@
+%funtion to convert scattered data to matrix
 function [M] = scatteredData2matrix(XY, Z, dim_x, dim_y)
     M = zeros(dim_x, dim_y);
     [num_points, num_coord] = size(Z);

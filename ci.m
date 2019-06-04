@@ -1,3 +1,4 @@
+%function used to compute confidence interval
 function [bounds,rel] = ci(data)
 SEM = std(data)/sqrt(length(data));               % Standard Error
 ts = tinv([0.025  0.975],length(data)-1);      % T-Score

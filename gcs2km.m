@@ -1,5 +1,5 @@
+%Geographic coordinate system to km
 function [Lx, Ly] = gcs2km(x1, y1, x2, y2)
-    %Geographic coordinate system to km
     %supposing small angles and earth perfectly spherical
     %supposing of being far from equator
     R = 6378137; %m at equator

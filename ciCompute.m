@@ -1,3 +1,6 @@
+%script for computing the confidence interval for each algorithm
+%the algorithm under test must be un commented
+%workspace is supposed filled with the case data
 %getting useful data
 dx = evalin('base','dx');
 dy = evalin('base','dy');

@@ -1,3 +1,5 @@
+%funtion to convert scattered data to matrix considering the presence of
+%points without measures or with more than one
 function [M] = redundantScatteredData2matrix(XY, Z, dim_x, dim_y)
     M = zeros(dim_x, dim_y);
     C = zeros(dim_x, dim_y);

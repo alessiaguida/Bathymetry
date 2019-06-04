@@ -1,3 +1,4 @@
+%function to plot a matrix representig a surface
 function plotSurface(M, name, limits, dx, dy, label,offset_x,offset_y)
 if(nargin == 3)
     %default values

@@ -1,3 +1,5 @@
+%function to convert a matrix to scattered data vectors considering a
+%matrix that can have points without a measure (NaN)
 function [XY, Z] = sparseMatrix2scatteredData(M, step_x, step_y)
     [n, m] = size(M);
     h = sum(sum(isfinite(M)));

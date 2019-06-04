@@ -1,3 +1,4 @@
+%function to convert a matrix to scattered data vectors
 function [XY, Z] = matrix2scatteredData(M, step_x, step_y)
     [n, m] = size(M);
     XY = zeros((n * m), 2);

@@ -1,3 +1,4 @@
+%function for plotting time-mse graphs
 function plotPerformances(M)
     %M is structured as (name, mse, time)
     figure('Name', 'Performances','NumberTitle','off')

@@ -1,3 +1,4 @@
+%function that return the signal power computing the sonar equation
 function [S] = eco(R, SL, DT, TS, alfa, N)
     TL = 20 * log10(R) + alfa * R;
     S = SL - 2 * TL + TS;
