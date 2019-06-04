@@ -35,19 +35,19 @@ M = redundantScatteredData2matrix([(X_data') (Y_data')], vettore_risultante(3,:)
 [samples_XY, samples] = sparseMatrix2scatteredData(M, 1, 1);
 
 %interpolation, computing confidence interval
-N_iter = 2;
+N_iter = 5;
 times = zeros(N_iter, 1);
 figure;
 for i=1:N_iter
     close;
 %     linearInterpolation
 %     plotSurface(M_linear,'Linear interpolation', limits, dx, dy, label, -offset_x, -offset_y);
-    naturalNeighbourInterpolation
-    plotSurface(M_natural, 'Natural neighbour interpolation', limits, dx, dy, label, -offset_x, -offset_y);
+%     naturalNeighbourInterpolation
+%     plotSurface(M_natural, 'Natural neighbour interpolation', limits, dx, dy, label, -offset_x, -offset_y);
 %     shepardInterpolation
 %     plotSurface(M_shepard, 'Shepard interpolation', limits, dx, dy, label, -offset_x, -offset_y);
-%     minimumCurvatureInterpolation
-%     plotSurface(M_mincurv,'Minimum curvature interpolation', limits, dx, dy, label, -offset_x, -offset_y);
+    minimumCurvatureInterpolation
+    plotSurface(M_mincurv,'Minimum curvature interpolation', limits, dx, dy, label, -offset_x, -offset_y);
 %     v4Interpolation
 %     plotSurface(M_v4, 'v4 interpolation', limits, dx, dy, label, -offset_x, -offset_y);
     times(i, 1) = time;
@@ -56,7 +56,7 @@ end
 ci(times);
 fprintf("%.1f\n", error);
 %plotting measures position
-figure
+figure('Name','Mission path','NumberTitle','off');
 plot(Y_data-1,X_data-1,'or')
 xlabel("X ["+label+"]");
 t = get(gca, 'XTick');

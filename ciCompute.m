@@ -15,7 +15,7 @@ limits = [-303 -297]; %step, plane and sin
 %limits = [-315 -285]; %gaussian
 %limits = [-3010 -2700]; %Mediterranean
 
-N_iter = 3;
+N_iter = 5;
 times = zeros(N_iter, 1);
 for i=1:N_iter
     %interpolation method
