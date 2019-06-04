@@ -40,10 +40,10 @@ times = zeros(N_iter, 1);
 figure;
 for i=1:N_iter
     close;
-    linearInterpolation
-    plotSurface(M_linear,'Linear interpolation', limits, dx, dy, label, -offset_x, -offset_y);
-%     naturalNeighbourInterpolation
-%     plotSurface(M_natural, 'Natural neighbour interpolation', limits, dx, dy, label, -offset_x, -offset_y);
+%     linearInterpolation
+%     plotSurface(M_linear,'Linear interpolation', limits, dx, dy, label, -offset_x, -offset_y);
+    naturalNeighbourInterpolation
+    plotSurface(M_natural, 'Natural neighbour interpolation', limits, dx, dy, label, -offset_x, -offset_y);
 %     shepardInterpolation
 %     plotSurface(M_shepard, 'Shepard interpolation', limits, dx, dy, label, -offset_x, -offset_y);
 %     minimumCurvatureInterpolation
