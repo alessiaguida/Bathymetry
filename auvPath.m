@@ -2,9 +2,9 @@
 mps2kn = 1.94384; %scale factor
 R = eval(eco2R(DT + N, SL, TS, alfa));
 Tr = R / c;
-v_ub1 = (Dx_index * dx) / (2 * Tr + Td);
+v_ub1 = (Dy_index * dy) / (2 * Tr + Td);
 v_ub1 = v_ub1 * mps2kn;
-v_ub2 = (PRmax + 1) * Dx_index * dx;
+v_ub2 = (PRmax + 1) * Dy_index * dy;
 v_ub2 = v_ub2 * mps2kn;
 v_lub = min(v_ub1, v_ub2);
 if shape == "Mediterranean Sea"
