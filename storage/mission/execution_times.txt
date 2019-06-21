@@ -1,0 +1,6 @@
+Exacution times in seconds with 95% confidence interval on 5 reps
+2.897 ± 0.185 Minimum curvature
+0.116 ± 0.017 Linear
+0.120 ± 0.015 Natural neighbour
+9.338 ± 0.131 Shepard
+2.325 ± 0.075 Biharmonic spline
